@@ -1,0 +1,17 @@
+.schedule-layout {
+    display: grid;
+    grid-template-columns: minmax(25px, 1fr) minmax(auto, 1200px) minmax(
+            25px,
+            1fr
+        );
+    grid-template-rows: auto 1fr;
+    min-height: 100vh;
+
+    & > * {
+        grid-column: 2;
+
+        &.full {
+            grid-column: 1 / -1;
+        }
+    }
+}

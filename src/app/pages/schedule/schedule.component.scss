@@ -1,0 +1,42 @@
+.schedule-page {
+    padding-block: 2em;
+
+    header {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5em;
+
+        .navigate-months {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            mat-icon {
+                cursor: pointer;
+            }
+
+            .month-name {
+                font-size: 33px;
+                font-weight: 700;
+            }
+        }
+
+        .navigate-days {
+            padding-inline: 1em;
+
+            .days-names {
+                ul {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    li {
+                        color: #8393a3;
+                        font-size: 25px;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+}

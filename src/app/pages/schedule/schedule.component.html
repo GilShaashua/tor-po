@@ -1,0 +1,35 @@
+<section class="schedule-page schedule-layout">
+    <header>
+        <div class="navigate-months">
+            <mat-icon fontIcon="keyboard_arrow_right"></mat-icon>
+
+            <div class="month-name">
+                <span>{{ monthSchedule.name }}</span>
+            </div>
+
+            <mat-icon fontIcon="keyboard_arrow_left"></mat-icon>
+        </div>
+
+        <div class="navigate-days">
+            <div class="days-names">
+                <ul>
+                    <li>א</li>
+                    <li>ב</li>
+                    <li>ג</li>
+                    <li>ד</li>
+                    <li>ה</li>
+                    <li>ו</li>
+                    <li>ש</li>
+                </ul>
+            </div>
+
+            <div class="days-numbers">
+                <ul>
+                    <!-- @for (dayNumber of monthSchedule.dayStart; track $index) {
+                    <li>f</li>
+                    } -->
+                </ul>
+            </div>
+        </div>
+    </header>
+</section>
