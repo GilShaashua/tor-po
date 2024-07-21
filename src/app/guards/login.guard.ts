@@ -9,6 +9,7 @@ export const loginGuard: CanActivateFn = (route, state) => {
 
     if (loggedInUser) {
         console.error('There is already a loggedInUser!')
+        authService.setLoggedInUser(null)
         router.navigateByUrl('/')
         return false
     }

@@ -24,7 +24,7 @@ export class AuthService {
         )
     }
 
-    setLoggedInUser(user: User): void {
+    setLoggedInUser(user: User | null): void {
         this.cookieService.set('loggedInUser', JSON.stringify(user))
         this._loggedInUser$.next(user)
     }

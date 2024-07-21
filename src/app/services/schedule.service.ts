@@ -24,7 +24,17 @@ export class ScheduleService {
     }
 
     getAppointments(): Observable<Appointment[]> {
-        return of([
+        let appointments = localStorage.getItem('appointments')
+
+        if (appointments) {
+            const appointmentsParsed = JSON.parse(appointments)
+
+            if (appointments) {
+                return of(appointmentsParsed)
+            }
+        }
+
+        appointments = JSON.stringify([
             {
                 id: 1,
                 title: 'הסרת פנים בלייזר',
@@ -33,5 +43,8 @@ export class ScheduleService {
                 timeEnd: '11:30',
             },
         ])
+
+        localStorage.setItem('appointments', appointments)
+        return of(JSON.parse(appointments))
     }
 }
