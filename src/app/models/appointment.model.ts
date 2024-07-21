@@ -4,4 +4,5 @@ export interface Appointment {
     clientName: string
     timeStart: string
     timeEnd: string
+    isBooked: boolean
 }

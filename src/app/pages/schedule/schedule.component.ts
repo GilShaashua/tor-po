@@ -62,6 +62,7 @@ export class ScheduleComponent implements OnInit {
     }
 
     private _getEmptyAppointments() {
+        let id = 1
         const emptyAppointments: Appointment[] = []
         let lastEndTime = '08:00' // Start of the day
 
@@ -76,6 +77,7 @@ export class ScheduleComponent implements OnInit {
                     clientName: '',
                     timeStart: lastEndTime,
                     timeEnd: appointment.timeStart,
+                    isBooked: false,
                 })
             }
 
@@ -85,11 +87,12 @@ export class ScheduleComponent implements OnInit {
         // Check for a gap between the last appointment and the end of the day
         if (lastEndTime < '18:00') {
             emptyAppointments.push({
-                id: -1,
+                id: id++,
                 title: '',
                 clientName: '',
                 timeStart: lastEndTime,
                 timeEnd: '18:00',
+                isBooked: false,
             })
         }
 
@@ -99,13 +102,9 @@ export class ScheduleComponent implements OnInit {
         )
     }
 
-    getAppointmentStyle(
-        appointment: Appointment,
-        isEmpty: boolean,
-        isLatest: boolean
-    ) {
+    getAppointmentStyle(appointment: Appointment, isLatest: boolean) {
         const scheduleStartTime = 8 // schedule starts at 8 AM
-        const hourHeight = 60 + 35 // each hour in the schedule is represented by 60px
+        const hourHeight = 60 + 30 // each hour in the schedule is represented by 60px
 
         const startTime = this._extractHour(appointment.timeStart)
         const endTime = this._extractHour(appointment.timeEnd)
@@ -115,20 +114,14 @@ export class ScheduleComponent implements OnInit {
 
         if (isLatest) {
             return {
-                top: `${top + 3}px`,
-                height: `${height - 27}px`,
-                position: 'absolute',
-            }
-        } else if (isEmpty) {
-            return {
-                top: `${top + 3}px`,
-                height: `${height - 10}px`,
+                top: `${top}px`,
+                height: `${height + 10}px`,
                 position: 'absolute',
             }
         } else {
             return {
                 top: `${top}px`,
-                height: `${height - 5}px`,
+                height: `${height}px`,
                 position: 'absolute',
                 'z-index': 999,
             }
@@ -143,5 +136,11 @@ export class ScheduleComponent implements OnInit {
         }
 
         return hour
+    }
+
+    isDecimal(time: string): boolean {
+        const hour = this._extractHour(time)
+
+        return hour % 1 !== 0
     }
 }

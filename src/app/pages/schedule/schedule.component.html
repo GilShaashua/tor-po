@@ -58,35 +58,40 @@
                 [ngStyle]="
                     getAppointmentStyle(
                         appointment,
-                        appointment.id === -1 ? true : false,
                         $index === appointments.length - 1 ? true : false
                     )
                 "
-                [ngClass]="{ empty: appointment.id === -1 }"
+                [ngClass]="{
+                    empty: !appointment.isBooked,
+                    decimal: isDecimal(appointment.timeStart)
+                }"
                 #elAppointment
             >
-                <div
-                    class="icon"
-                    *ngIf="!elAppointment.classList.contains('empty')"
-                >
-                    <mat-icon
-                        fontIcon="check"
-                        [style.color]="'white'"
-                    ></mat-icon>
-                </div>
-
-                <div
-                    class="content"
-                    *ngIf="!elAppointment.classList.contains('empty')"
-                >
-                    <div class="hours" dir="ltr">
-                        {{ appointment.timeStart }} - {{ appointment.timeEnd }}
+                <div class="inner-container">
+                    <div
+                        class="icon"
+                        *ngIf="!elAppointment.classList.contains('empty')"
+                    >
+                        <mat-icon
+                            fontIcon="check"
+                            [style.color]="'white'"
+                        ></mat-icon>
                     </div>
 
-                    <div class="details">
-                        <div class="title">{{ appointment.title }}</div>
-                        <div class="client-name">
-                            {{ appointment.clientName }}
+                    <div
+                        class="content"
+                        *ngIf="!elAppointment.classList.contains('empty')"
+                    >
+                        <div class="details">
+                            <div class="title">{{ appointment.title }}</div>
+                            <div class="client-name">
+                                {{ appointment.clientName }}
+                            </div>
+                        </div>
+
+                        <div class="hours" dir="ltr">
+                            {{ appointment.timeStart }} -
+                            {{ appointment.timeEnd }}
                         </div>
                     </div>
                 </div>
