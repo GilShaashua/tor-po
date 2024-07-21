@@ -26,7 +26,9 @@
             <div class="days-numbers">
                 <ul>
                     @for (dayNumber of [].constructor(7); track $index) {
-                    <li>{{ month.dayStart + $index }}</li>
+                    <li [ngClass]="{ active: $index === 2 }">
+                        {{ month.dayStart + $index }}
+                    </li>
                     }
                 </ul>
             </div>
@@ -42,15 +44,31 @@
 
         <ul class="appointments">
             @for (appointment of appointments; track $index) {
-            <li [ngStyle]="calculateAppointmentStyle(appointment)">
-                <div class="icon">
+            <li
+                [ngStyle]="
+                    getAppointmentStyle(
+                        appointment,
+                        appointment.id === -1 ? true : false,
+                        $index === appointments.length - 1 ? true : false
+                    )
+                "
+                [ngClass]="{ empty: appointment.id === -1 }"
+                #elAppointment
+            >
+                <div
+                    class="icon"
+                    *ngIf="!elAppointment.classList.contains('empty')"
+                >
                     <mat-icon
                         fontIcon="check"
                         [style.color]="'white'"
                     ></mat-icon>
                 </div>
 
-                <div class="content">
+                <div
+                    class="content"
+                    *ngIf="!elAppointment.classList.contains('empty')"
+                >
                     <div class="hours" dir="ltr">
                         {{ appointment.timeStart }} - {{ appointment.timeEnd }}
                     </div>

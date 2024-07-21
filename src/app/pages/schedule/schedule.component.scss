@@ -102,11 +102,11 @@
                 color: #c8d2dd;
                 font-size: 20px;
                 font-weight: 700;
-                height: fit-content;
+                height: 30px;
                 line-height: 1;
-                // display: flex;
-                // align-items: center;
-                // justify-content: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
 
@@ -122,7 +122,7 @@
                 display: flex;
                 border-radius: 10px;
                 padding-inline: 1.5em;
-                padding-block: 0.7em;
+                padding-block: 0.8em;
                 gap: 1em;
                 color: #45454d;
                 background-color: #e2fbfc;
@@ -158,27 +158,26 @@
                         }
                     }
                 }
+
+                &.empty {
+                    position: relative;
+                    background-color: #f7fff8;
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-image: url(../../../assets/empty_apointment-bgc.png);
+                        background-repeat: repeat;
+                        background-size: 50px 50px;
+                        opacity: 0.01; /* Adjust the opacity as needed */
+                        z-index: 1;
+                    }
+                }
             }
         }
     }
 }
-
-// &.empty {
-//     position: relative;
-//     background-color: #f7fff8;
-//     height: 250px;
-
-//     &::before {
-//         content: '';
-//         position: absolute;
-//         top: 0;
-//         left: 0;
-//         right: 0;
-//         bottom: 0;
-//         background-image: url(../../../assets/empty_apointment-bgc.png);
-//         background-repeat: repeat;
-//         background-size: 50px 50px;
-//         opacity: 0.009; /* Adjust the opacity as needed */
-//         z-index: 1;
-//     }
-// }
