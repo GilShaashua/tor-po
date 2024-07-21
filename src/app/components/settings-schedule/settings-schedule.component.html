@@ -1,1 +1,40 @@
-<p>settings-schedule works!</p>
+<div class="settings-schedule">
+    <div
+        class="settings-icon"
+        (click)="isSettingsScheduleOpen = !isSettingsScheduleOpen"
+    >
+        <div class="circle">
+            <mat-icon
+                fontIcon="settings"
+                [style.color]="'white'"
+                [style.fontSize.px]="35"
+                [style.width.px]="35"
+                [style.height.px]="35"
+            ></mat-icon>
+        </div>
+    </div>
+
+    <div class="days-icon" [ngClass]="{ open: isSettingsScheduleOpen }">
+        <div class="circle">
+            <mat-icon
+                fontIcon="insert_invitation"
+                [style.color]="'white'"
+                [style.fontSize.px]="25"
+                [style.width.px]="25"
+                [style.height.px]="25"
+            ></mat-icon>
+        </div>
+    </div>
+
+    <div class="blockings-icon" [ngClass]="{ open: isSettingsScheduleOpen }">
+        <div class="circle">
+            <mat-icon
+                fontIcon="block"
+                [style.color]="'white'"
+                [style.fontSize.px]="25"
+                [style.width.px]="25"
+                [style.height.px]="25"
+            ></mat-icon>
+        </div>
+    </div>
+</div>

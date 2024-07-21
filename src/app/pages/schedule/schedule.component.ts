@@ -4,11 +4,12 @@ import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
 import { Appointment } from 'src/app/models/appointment.model'
+import { SettingsScheduleComponent } from '../../components/settings-schedule/settings-schedule.component'
 
 @Component({
     selector: 'schedule',
     standalone: true,
-    imports: [CommonModule, MatIconModule],
+    imports: [CommonModule, MatIconModule, SettingsScheduleComponent],
     templateUrl: './schedule.component.html',
     styleUrls: ['./schedule.component.scss'],
 })

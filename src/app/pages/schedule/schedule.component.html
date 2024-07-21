@@ -1,13 +1,23 @@
 <section class="schedule-page schedule-layout" *ngIf="appointments && month">
     <div class="header full">
         <div class="navigate-months">
-            <mat-icon fontIcon="keyboard_arrow_right"></mat-icon>
+            <mat-icon
+                fontIcon="keyboard_arrow_right"
+                [style.fontSize.px]="30"
+                [style.width.px]="30"
+                [style.height.px]="30"
+            ></mat-icon>
 
             <div class="month-name">
                 <span>{{ month.name }}</span>
             </div>
 
-            <mat-icon fontIcon="keyboard_arrow_left"></mat-icon>
+            <mat-icon
+                fontIcon="keyboard_arrow_left"
+                [style.fontSize.px]="30"
+                [style.width.px]="30"
+                [style.height.px]="30"
+            ></mat-icon>
         </div>
 
         <div class="navigate-days">
@@ -84,4 +94,6 @@
             }
         </ul>
     </div>
+
+    <settings-schedule></settings-schedule>
 </section>
