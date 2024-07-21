@@ -1,10 +1,10 @@
-<section class="schedule-page schedule-layout">
-    <header>
+<section class="schedule-page schedule-layout" *ngIf="appointments && month">
+    <div class="header full">
         <div class="navigate-months">
             <mat-icon fontIcon="keyboard_arrow_right"></mat-icon>
 
             <div class="month-name">
-                <span>{{ monthSchedule.name }}</span>
+                <span>{{ month.name }}</span>
             </div>
 
             <mat-icon fontIcon="keyboard_arrow_left"></mat-icon>
@@ -25,11 +25,45 @@
 
             <div class="days-numbers">
                 <ul>
-                    <!-- @for (dayNumber of monthSchedule.dayStart; track $index) {
-                    <li>f</li>
-                    } -->
+                    @for (dayNumber of [].constructor(7); track $index) {
+                    <li>{{ month.dayStart + $index }}</li>
+                    }
                 </ul>
             </div>
         </div>
-    </header>
+    </div>
+
+    <div class="body">
+        <ul class="hours">
+            @for(hour of hours; track $index) {
+            <li>{{ hour }}</li>
+            }
+        </ul>
+
+        <ul class="appointments">
+            @for (appointment of appointments; track $index) {
+            <li [ngStyle]="calculateAppointmentStyle(appointment)">
+                <div class="icon">
+                    <mat-icon
+                        fontIcon="check"
+                        [style.color]="'white'"
+                    ></mat-icon>
+                </div>
+
+                <div class="content">
+                    <div class="hours" dir="ltr">
+                        {{ appointment.timeStart }} - {{ appointment.timeEnd }}
+                    </div>
+
+                    <div class="details">
+                        <div class="title">{{ appointment.title }}</div>
+                        <div class="client-name">
+                            {{ appointment.clientName }}
+                        </div>
+                    </div>
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
 </section>

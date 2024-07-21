@@ -1,10 +1,20 @@
+@import '../../../styles/colors.scss';
+
 .schedule-page {
     padding-block: 2em;
 
-    header {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5em;
+    .header {
+        display: grid;
+        grid-template-columns: minmax(25px, 1fr) minmax(auto, 1200px) minmax(
+                25px,
+                1fr
+            );
+        & > * {
+            grid-column: 2;
+        }
+        row-gap: 1.5em;
+        padding-block-end: 2em;
+        border-block-end: 2px solid #d8d8d8;
 
         .navigate-months {
             display: flex;
@@ -23,20 +33,152 @@
 
         .navigate-days {
             padding-inline: 1em;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8em;
 
             .days-names {
                 ul {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    gap: 0.5em;
 
                     li {
                         color: #8393a3;
                         font-size: 25px;
                         font-weight: 700;
+                        width: 42px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .days-numbers {
+                ul {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 0.5em;
+
+                    li {
+                        width: 42px;
+                        height: 42px;
+                        border-radius: 50%;
+                        border: 1px solid #e7e7e7;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: #586470;
+                        font-weight: 400;
+                        font-size: 20px;
+
+                        &.active {
+                            background-color: $secondary-color;
+                            color: $primary-text-color;
+                            border: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .body {
+        padding-block-start: 2em;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 2em;
+
+        .hours {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+
+            li {
+                color: #c8d2dd;
+                font-size: 20px;
+                font-weight: 700;
+                height: fit-content;
+                line-height: 1;
+                // display: flex;
+                // align-items: center;
+                // justify-content: center;
+            }
+        }
+
+        .appointments {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+            li {
+                width: 100%;
+                display: flex;
+                border-radius: 10px;
+                padding-inline: 1.5em;
+                padding-block: 0.7em;
+                gap: 1em;
+                color: #45454d;
+                background-color: #e2fbfc;
+
+                .icon {
+                    background-color: #45454d;
+                    border-radius: 50%;
+                    width: 36px;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .content {
+                    display: flex;
+                    flex-direction: column;
+
+                    .hours {
+                        font-size: 15px;
+                        font-weight: 700;
+                    }
+
+                    .details {
+                        .title {
+                            font-size: 20px;
+                            font-weight: 700;
+                        }
+
+                        .client-name {
+                            font-size: 20px;
+                            font-weight: 400;
+                        }
                     }
                 }
             }
         }
     }
 }
+
+// &.empty {
+//     position: relative;
+//     background-color: #f7fff8;
+//     height: 250px;
+
+//     &::before {
+//         content: '';
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         right: 0;
+//         bottom: 0;
+//         background-image: url(../../../assets/empty_apointment-bgc.png);
+//         background-repeat: repeat;
+//         background-size: 50px 50px;
+//         opacity: 0.009; /* Adjust the opacity as needed */
+//         z-index: 1;
+//     }
+// }
