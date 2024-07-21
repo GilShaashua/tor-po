@@ -42,6 +42,20 @@ export class ScheduleService {
                 timeStart: '10:30',
                 timeEnd: '11:30',
             },
+            {
+                id: 2,
+                title: 'הסרת פנים בלייזר',
+                clientName: 'שמעון הלוי',
+                timeStart: '11:30',
+                timeEnd: '12:30',
+            },
+            {
+                id: 3,
+                title: 'הסרת פנים בלייזר',
+                clientName: 'שמעון הלוי',
+                timeStart: '14:30',
+                timeEnd: '15:30',
+            },
         ])
 
         localStorage.setItem('appointments', appointments)

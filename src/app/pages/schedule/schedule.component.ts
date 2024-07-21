@@ -78,6 +78,7 @@ export class ScheduleComponent implements OnInit {
                     timeEnd: appointment.timeStart,
                 })
             }
+
             lastEndTime = appointment.timeEnd
         }
 
@@ -115,7 +116,7 @@ export class ScheduleComponent implements OnInit {
         if (isLatest) {
             return {
                 top: `${top + 3}px`,
-                height: `${height - 30}px`,
+                height: `${height - 27}px`,
                 position: 'absolute',
             }
         } else if (isEmpty) {
