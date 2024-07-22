@@ -128,6 +128,66 @@ export class ScheduleComponent implements OnInit {
         }
     }
 
+    getSeperatorStyle(idx: number) {
+        const scheduleStartTime = 8 // schedule starts at 8 AM
+        const hourHeight = 60 + 30 // each hour in the schedule is represented by 60px
+
+        let startTime!: number
+
+        switch (idx + 1) {
+            case 1: {
+                startTime = 8
+                break
+            }
+            case 2: {
+                startTime = 9
+                break
+            }
+            case 3: {
+                startTime = 10
+                break
+            }
+            case 4: {
+                startTime = 11
+                break
+            }
+            case 5: {
+                startTime = 12
+                break
+            }
+            case 6: {
+                startTime = 13
+                break
+            }
+            case 7: {
+                startTime = 14
+                break
+            }
+            case 8: {
+                startTime = 15
+                break
+            }
+            case 9: {
+                startTime = 16
+                break
+            }
+            case 10: {
+                startTime = 17
+                break
+            }
+            case 11: {
+                startTime = 18
+                break
+            }
+        }
+
+        let top = (startTime - scheduleStartTime) * hourHeight
+
+        return {
+            top: `${top}px`,
+        }
+    }
+
     private _extractHour(time: string): number {
         let [hour, minutes] = time.split(':').map(Number)
 

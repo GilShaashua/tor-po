@@ -48,7 +48,9 @@
     <div class="body">
         <ul class="hours">
             @for(hour of hours; track $index) {
-            <li>{{ hour }}</li>
+            <li>
+                {{ hour }}
+            </li>
             }
         </ul>
 
@@ -97,6 +99,15 @@
                 </div>
             </li>
             }
+
+            <ul class="seperators">
+                @for (seperator of [].constructor(11); track $index) {
+                <li
+                    class="seperator"
+                    [ngStyle]="getSeperatorStyle($index)"
+                ></li>
+                }
+            </ul>
         </ul>
     </div>
 
