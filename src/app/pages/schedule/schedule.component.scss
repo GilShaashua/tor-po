@@ -112,7 +112,6 @@
 
                 &.oclock {
                     position: absolute;
-                    top: 460px;
                     right: 0;
                     z-index: 9999;
                     width: 100vw;
@@ -121,7 +120,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
-                    translate: 25px 0;
+                    translate: 25px 14px;
 
                     span {
                         position: absolute;
@@ -218,7 +217,7 @@
                     position: relative;
 
                     .inner-container {
-                        background-color: #f7fff8;
+                        background-color: #f0fdf1;
 
                         &::before {
                             content: '';
@@ -257,4 +256,14 @@
             }
         }
     }
+}
+
+.loader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-block-start: 4em;
+    font-size: 30px;
+    font-family: 'Birzia-Bold', Arial, Helvetica, sans-serif;
 }

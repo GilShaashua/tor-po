@@ -1,4 +1,6 @@
-<section class="schedule-page schedule-layout" *ngIf="appointments && month">
+@if (appointments && month && oclock) {
+
+<section class="schedule-page schedule-layout">
     <div class="header full">
         <div class="navigate-months">
             <mat-icon
@@ -53,8 +55,13 @@
             </li>
             }
 
-            <li class="oclock">
-                <span>11:43</span>
+            <li
+                class="oclock"
+                #elOclock
+                *ngIf="isOclockShown && oclockTop"
+                [ngStyle]="{ top: oclockTop }"
+            >
+                <span>{{ oclock }}</span>
             </li>
         </ul>
 
@@ -117,3 +124,7 @@
 
     <settings-schedule></settings-schedule>
 </section>
+
+} @else {
+<div class="loader" dir="ltr">Loading...</div>
+}

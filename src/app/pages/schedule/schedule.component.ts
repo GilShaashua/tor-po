@@ -1,10 +1,11 @@
 import { ScheduleService } from 'src/app/services/schedule.service'
 import { Month } from 'src/app/models/month.model'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon'
 import { Appointment } from 'src/app/models/appointment.model'
 import { SettingsScheduleComponent } from '../../components/settings-schedule/settings-schedule.component'
+import { interval, Subject, takeUntil } from 'rxjs'
 
 @Component({
     selector: 'schedule',
@@ -13,10 +14,13 @@ import { SettingsScheduleComponent } from '../../components/settings-schedule/se
     templateUrl: './schedule.component.html',
     styleUrls: ['./schedule.component.scss'],
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, OnDestroy {
     constructor(private scheduleService: ScheduleService) {}
 
     currMonth = new Date().getMonth()
+    oclock!: string
+    oclockTop!: string
+    isOclockShown = false
     month!: Month
     hours = [
         '08:00',
@@ -32,22 +36,61 @@ export class ScheduleComponent implements OnInit {
         '18:00',
     ]
     appointments!: Appointment[]
+    subscriptionSubject = new Subject<null>()
 
     ngOnInit(): void {
+        interval(1000)
+            .pipe(takeUntil(this.subscriptionSubject))
+            .subscribe({
+                next: () => {
+                    this._getOclock()
+                },
+                error: (err) => {
+                    console.error('Cannot get oclock', err)
+                },
+            })
+
         this._getMonth()
         this._getAppointments()
     }
 
+    private _getOclock() {
+        const oclock =
+            new Date().getHours() +
+            ':' +
+            new Date().getMinutes().toFixed(0).padStart(2, '0')
+        this.oclock = oclock
+
+        if (new Date().getHours() >= 8 && new Date().getHours() <= 18) {
+            this.isOclockShown = true
+        } else {
+            this.isOclockShown = false
+            return
+        }
+
+        const scheduleStartTime = 8 // schedule starts at 8 AM
+        const minutesInHour = 90
+
+        const minutesSinceStart =
+            (new Date().getHours() - scheduleStartTime) * minutesInHour +
+            new Date().getMinutes()
+
+        this.oclockTop = minutesSinceStart + 'px'
+    }
+
     private _getAppointments() {
-        this.scheduleService.getAppointments().subscribe({
-            next: (appointments) => {
-                this.appointments = appointments
-                this._getEmptyAppointments()
-            },
-            error: (err) => {
-                console.error('err', err)
-            },
-        })
+        this.scheduleService
+            .getAppointments()
+            .pipe(takeUntil(this.subscriptionSubject))
+            .subscribe({
+                next: (appointments) => {
+                    this.appointments = appointments
+                    this._getEmptyAppointments()
+                },
+                error: (err) => {
+                    console.error('Cannot get appointments', err)
+                },
+            })
     }
 
     private _getMonth() {
@@ -104,7 +147,7 @@ export class ScheduleComponent implements OnInit {
 
     getAppointmentStyle(appointment: Appointment, isLatest: boolean) {
         const scheduleStartTime = 8 // schedule starts at 8 AM
-        const hourHeight = 60 + 30 // each hour in the schedule is represented by 60px
+        const hourHeight = 90 // each hour in the schedule is represented by 90px
 
         const startTime = this._extractHour(appointment.timeStart)
         const endTime = this._extractHour(appointment.timeEnd)
@@ -115,7 +158,7 @@ export class ScheduleComponent implements OnInit {
         if (isLatest) {
             return {
                 top: `${top}px`,
-                height: `${height + 10}px`,
+                height: `${height + 7}px`,
                 position: 'absolute',
             }
         } else {
@@ -123,7 +166,6 @@ export class ScheduleComponent implements OnInit {
                 top: `${top}px`,
                 height: `${height}px`,
                 position: 'absolute',
-                'z-index': 999,
             }
         }
     }
@@ -202,5 +244,10 @@ export class ScheduleComponent implements OnInit {
         const hour = this._extractHour(time)
 
         return hour % 1 !== 0
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptionSubject.next(null)
+        this.subscriptionSubject.complete()
     }
 }
