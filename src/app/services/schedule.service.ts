@@ -48,15 +48,15 @@ export class ScheduleService {
                 title: 'הסרת פנים בלייזר',
                 clientName: 'שמעון הלוי',
                 timeStart: '13:30',
-                timeEnd: '14:00',
+                timeEnd: '14:30',
                 isBooked: true,
             },
             {
                 id: 3,
                 title: 'הסרת פנים בלייזר',
                 clientName: 'שמעון הלוי',
-                timeStart: '14:00',
-                timeEnd: '15:00',
+                timeStart: '16:00',
+                timeEnd: '17:00',
                 isBooked: true,
             },
         ])
