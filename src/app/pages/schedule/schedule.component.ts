@@ -39,6 +39,12 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     subscriptionSubject = new Subject<null>()
 
     ngOnInit(): void {
+        this._initOclockInterval()
+        this._getMonth()
+        this._getBookedAppointments()
+    }
+
+    private _initOclockInterval() {
         interval(1000)
             .pipe(takeUntil(this.subscriptionSubject))
             .subscribe({
@@ -49,19 +55,20 @@ export class ScheduleComponent implements OnInit, OnDestroy {
                     console.error('Cannot get oclock', err)
                 },
             })
-
-        this._getMonth()
-        this._getAppointments()
     }
 
     private _getOclock() {
+        const hours = new Date().getHours() - 4
+        const minutes = new Date().getMinutes()
+
         const oclock =
-            new Date().getHours() +
+            hours.toFixed(0).padStart(2, '0') +
             ':' +
-            new Date().getMinutes().toFixed(0).padStart(2, '0')
+            minutes.toFixed(0).padStart(2, '0')
+
         this.oclock = oclock
 
-        if (new Date().getHours() >= 8 && new Date().getHours() <= 18) {
+        if (hours >= 8 && hours < 18) {
             this.isOclockShown = true
         } else {
             this.isOclockShown = false
@@ -72,13 +79,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         const minutesInHour = 90
 
         const minutesSinceStart =
-            (new Date().getHours() - scheduleStartTime) * minutesInHour +
-            new Date().getMinutes()
+            (hours - scheduleStartTime) * minutesInHour +
+            minutes * (minutesInHour / 60)
 
         this.oclockTop = minutesSinceStart + 'px'
     }
 
-    private _getAppointments() {
+    private _getBookedAppointments() {
         this.scheduleService
             .getAppointments()
             .pipe(takeUntil(this.subscriptionSubject))
@@ -121,6 +128,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
                     timeStart: lastEndTime,
                     timeEnd: appointment.timeStart,
                     isBooked: false,
+                    isBlocked: false,
                 })
             }
 
@@ -136,6 +144,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
                 timeStart: lastEndTime,
                 timeEnd: '18:00',
                 isBooked: false,
+                isBlocked: false,
             })
         }
 
@@ -145,7 +154,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         )
     }
 
-    getAppointmentStyle(appointment: Appointment, isLatest: boolean) {
+    getAppointmentPosition(appointment: Appointment, isLatest: boolean) {
         const scheduleStartTime = 8 // schedule starts at 8 AM
         const hourHeight = 90 // each hour in the schedule is represented by 90px
 
@@ -170,9 +179,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         }
     }
 
-    getSeperatorStyle(idx: number) {
+    getSeperatorPosition(idx: number) {
         const scheduleStartTime = 8 // schedule starts at 8 AM
-        const hourHeight = 60 + 30 // each hour in the schedule is represented by 60px
+        const hourHeight = 90 // each hour in the schedule is represented by 90px
 
         let startTime!: number
 
@@ -238,12 +247,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         }
 
         return hour
-    }
-
-    isDecimal(time: string): boolean {
-        const hour = this._extractHour(time)
-
-        return hour % 1 !== 0
     }
 
     ngOnDestroy(): void {

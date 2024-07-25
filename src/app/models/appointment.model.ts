@@ -5,4 +5,5 @@ export interface Appointment {
     timeStart: string
     timeEnd: string
     isBooked: boolean
+    isBlocked: boolean
 }

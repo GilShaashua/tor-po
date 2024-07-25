@@ -69,15 +69,14 @@
             @for (appointment of appointments; track $index) {
             <li
                 [ngStyle]="
-                    getAppointmentStyle(
+                    getAppointmentPosition(
                         appointment,
                         $index === appointments.length - 1 ? true : false
                     )
                 "
-                [ngClass]="{
-                    empty: !appointment.isBooked,
-                    decimal: isDecimal(appointment.timeStart)
-                }"
+                [ngClass]="{booked: appointment.isBooked && !appointment.isBlocked,
+                    empty: !appointment.isBooked && !appointment.isBlocked,
+                            blocked: appointment.isBlocked && !appointment.isBooked,}"
                 #elAppointment
             >
                 <div class="inner-container">
@@ -115,7 +114,7 @@
                 @for (seperator of [].constructor(11); track $index) {
                 <li
                     class="seperator"
-                    [ngStyle]="getSeperatorStyle($index)"
+                    [ngStyle]="getSeperatorPosition($index)"
                 ></li>
                 }
             </ul>

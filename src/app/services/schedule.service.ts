@@ -24,40 +24,41 @@ export class ScheduleService {
     }
 
     getAppointments(): Observable<Appointment[]> {
+        let id = 1
         let appointments = localStorage.getItem('appointments')
 
         if (appointments) {
             const appointmentsParsed = JSON.parse(appointments)
-
-            if (appointments) {
-                return of(appointmentsParsed)
-            }
+            return of(appointmentsParsed)
         }
 
         appointments = JSON.stringify([
             {
-                id: 1,
+                id: id++,
                 title: 'הסרת פנים בלייזר',
                 clientName: 'שמעון הלוי',
                 timeStart: '10:00',
                 timeEnd: '11:00',
                 isBooked: true,
+                isBlocked: false,
             },
             {
-                id: 2,
+                id: id++,
                 title: 'הסרת פנים בלייזר',
                 clientName: 'שמעון הלוי',
                 timeStart: '13:30',
                 timeEnd: '14:30',
                 isBooked: true,
+                isBlocked: false,
             },
             {
-                id: 3,
-                title: 'הסרת פנים בלייזר',
-                clientName: 'שמעון הלוי',
-                timeStart: '16:00',
-                timeEnd: '17:00',
-                isBooked: true,
+                id: id++,
+                title: 'חצי יום - ערב חג שבועות',
+                clientName: '',
+                timeStart: '14:30',
+                timeEnd: '18:00',
+                isBooked: false,
+                isBlocked: true,
             },
         ])
 

@@ -1,0 +1,40 @@
+.blocking-management-page {
+    display: grid;
+    grid-template-columns: minmax(25px, 1fr) minmax(auto, 1200px) minmax(
+            25px,
+            1fr
+        );
+    grid-template-rows: 105px 1fr;
+    min-height: 100vh;
+
+    & > * {
+        grid-column: 2;
+
+        &.full {
+            grid-column: 1 / -1;
+        }
+    }
+
+    .header {
+        border-block-end: 2px solid #d8d8d8;
+        display: grid;
+        grid-template-columns: minmax(25px, 1fr) minmax(auto, 1200px) minmax(
+                25px,
+                1fr
+            );
+
+        .inner-container {
+            grid-column: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            mat-icon {
+                cursor: pointer;
+            }
+            h1 {
+                font-size: 34px;
+            }
+        }
+    }
+}
