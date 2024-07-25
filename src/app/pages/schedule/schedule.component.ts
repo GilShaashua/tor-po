@@ -58,7 +58,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     }
 
     private _getOclock() {
-        const hours = new Date().getHours() - 4
+        const hours = new Date().getHours()
         const minutes = new Date().getMinutes()
 
         const oclock =
